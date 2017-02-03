@@ -2,11 +2,13 @@ var Backbone = require("../common/backboneFix.js");
 
 var IndexView = require('../views/index.js');
 var UserPageView = require('../views/userPage.js');
+var AlbumView = require('../views/albumPage.js');
 var UserDataModel = require("../models/userdata.js");
 
 var Router = Backbone.Router.extend({
     currentView: null,
     routes: {
+        "user/:id/album/:album": "showAlbum",
         "user/:id": "user",
         "": "index"
     },
@@ -18,11 +20,12 @@ var Router = Backbone.Router.extend({
         UserDataModel.on('change', this.redirect);
     },
     redirect: function() {
+        var status = UserDataModel.get('status');
         var session = UserDataModel.get('session');
 
         console.dir(UserDataModel);
 
-        if ( session && session.user ) {
+        if ( status && status === 'connected' ) {
             this.navigate('user/' + session.user.id, {trigger: true});
         } else {
             this.navigate('/', {trigger: true, replace: true});
@@ -45,6 +48,11 @@ var Router = Backbone.Router.extend({
         this.changeView(new UserPageView(id));
 
         console.log('user page');
+    },
+    showAlbum: function(id, album) {
+        this.changeView(new AlbumView(id, album));
+
+        console.log('album page');
     }
 });
 
