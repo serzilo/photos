@@ -1,6 +1,10 @@
 'use strict';
 
 var gulp = require('gulp'),
+    postcss = require('gulp-postcss'),
+    autoprefixer = require('autoprefixer'),
+    atImport = require("postcss-import"),
+    cssnano = require('cssnano'),
     browserify = require('browserify'),
     watch = require('gulp-watch'),
     rigger = require('gulp-rigger'),
@@ -26,15 +30,18 @@ var path = {
     build: {
         html: 'build/',
         js:   'build/js/',
-        jsName: 'bundle.js'
+        jsName: 'bundle.js',
+        css:  'build/css/'
     },
     src: {
         html:  'src/html/index.html',
-        js:    'src/js/app.js'
+        js:    'src/js/app.js',
+        css:   'src/css/main.css'
     },
     watch: {
         html:    'src/html/**/*.html',
-        js:      'src/js/**/*.js'
+        js:      'src/js/**/*.js',
+        css:    'src/css/**/*.css'
     }
 };
 
@@ -71,9 +78,17 @@ gulp.task('js:build', function () {
         .pipe(reload({stream: true}));
 });
 
+gulp.task('css:build', function () {
+    gulp.src(path.src.css)
+        .pipe( postcss([ atImport, autoprefixer, cssnano ]) )
+        .pipe(gulp.dest(path.build.css))
+        .pipe(reload({stream: true}));
+});
+
 gulp.task('build', [
     'html:build',
-    'js:build'
+    'js:build',
+    'css:build'
 ]);
 
 gulp.task('watch', function(){
@@ -83,6 +98,10 @@ gulp.task('watch', function(){
 
     watch([path.watch.js], function(event, cb) {
         gulp.start('js:build');
+    });
+
+    watch([path.watch.css], function(event, cb) {
+        gulp.start('css:build');
     });
 });
 

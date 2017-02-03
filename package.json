@@ -7,13 +7,17 @@
     "jquery": "^3.1.1"
   },
   "devDependencies": {
+    "autoprefixer": "^6.7.2",
     "browser-sync": "^2.18.7",
     "browserify": "^14.0.0",
+    "cssnano": "^3.10.0",
     "gulp": "^3.9.1",
     "gulp-if": "^2.0.2",
+    "gulp-postcss": "^6.3.0",
     "gulp-rigger": "^0.5.8",
     "gulp-uglify": "^2.0.1",
     "gulp-watch": "^4.3.11",
+    "postcss-import": "^9.1.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "yargs": "^6.6.0"
