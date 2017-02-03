@@ -35,7 +35,7 @@ var path = {
     },
     src: {
         html:  'src/html/index.html',
-        js:    'src/js/app.js',
+        js:    'src/js/boot.js',
         css:   'src/css/main.css'
     },
     watch: {

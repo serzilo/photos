@@ -6,11 +6,17 @@
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
-        <div id="app"></div>
+        <div class="container" id="app"></div>
 
         <script type="text/template" id="photoTile">
             <div class="photo-tile">
                 <img class="photo-tile__image" src="<%= text %>" alt="" />
+            </div>
+        </script>
+        <script type="text/template" id="loginPage">
+            <div class="jumbotron">
+                <p>Чтобы войти в приложение, нужно авторизоваться в ВКонтакте.</p>
+                <button id="signinBtn" class="btn btn-lg btn-success" type="submit">Войти</button>
             </div>
         </script>
 
