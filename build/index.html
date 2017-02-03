@@ -16,12 +16,15 @@
         <script type="text/template" id="loginPage">
             <div class="jumbotron">
                 <p>Чтобы войти в приложение, нужно авторизоваться в ВКонтакте.</p>
-                <button id="signinBtn" class="btn btn-lg btn-success" type="submit">Войти</button>
+                <button id="signInBtn" class="btn btn-lg btn-success" type="submit">Войти</button>
             </div>
         </script>
         <script type="text/template" id="userPage">
             <div class="">
-        
+                <h1>Привет, <%= last_name %> <%= first_name %>!</h1>
+                <p>
+                    Страница ВК: <a href="<%= href %>" target="_blank"><%= href %></a>
+                </p>
             </div>
         </script>
 
