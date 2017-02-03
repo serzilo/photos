@@ -53,9 +53,7 @@ var UserPage = Backbone.View.extend({
     logOut: function (e) {
         e.preventDefault();
 
-        VK.Auth.logout(function() {
-            UserDataModel.clear();
-        });
+        UserDataModel.clear();
     }
 });
 
