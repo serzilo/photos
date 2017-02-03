@@ -7,6 +7,7 @@ var AlbumPage = Backbone.View.extend({
     el: $('#app'),
     template: _.template($('#photosPage').html()),
     photoTileTemplate: _.template($('#photoTile').html()),
+    popupTemplate: _.template($('#popup').html()),
     initialize: function(id, album) {
         PhotosCollection.reset();
         this.renderPhotos = this.renderPhotos.bind(this);
@@ -16,7 +17,9 @@ var AlbumPage = Backbone.View.extend({
         PhotosCollection.on('add', this.renderPhotos);
     },
     events: {
-        'click #logOut': 'logOut'
+        'click #logOut': 'logOut',
+        'click .js-photo-tile': 'openPopup',
+        'click #closePopupBtn': 'closePopup'
     },
     render: function() {
         this.$el.html(this.template());
@@ -35,17 +38,29 @@ var AlbumPage = Backbone.View.extend({
     renderPhotos: function() {
         var that = this;
         var photos = PhotosCollection.map(function(photo){
-            var photo = photo.toJSON();
-
-            return that.photoTileTemplate(photo);
+            return that.photoTileTemplate(photo.toJSON());
         });
 
-        this.$el.find('#photos').html(photos);
+        this.$('#photos').html(photos);
     },
     logOut: function (e) {
         e.preventDefault();
 
         UserDataModel.clear();
+    },
+    openPopup: function(e) {
+        e.preventDefault();
+
+        var element = e.currentTarget;
+        var url = element.getAttribute('data-photo');
+        var description = element.getAttribute('data-text');
+
+        this.$('#popupPlace').html(this.popupTemplate({ url: url, description: description }));
+    },
+    closePopup: function(e) {
+        e.preventDefault();
+
+        this.$('#popupPlace').html('');
     }
 });
 

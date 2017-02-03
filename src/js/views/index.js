@@ -3,12 +3,13 @@ var UserDataModel = require("../models/userdata.js");
 var AppConfig = require('../configs/app.js');
 
 var IndexView = Backbone.View.extend({
+    el: $('#app'),
     template: _.template($('#loginPage').html()),
     events: {
         'click #signInBtn': 'signIn'
     },
     render: function() {
-        $('#app').html(this.$el.html(this.template()));
+        this.$el.html(this.template());
     },
     signIn: function(e) {
         e.preventDefault();

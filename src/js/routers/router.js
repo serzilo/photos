@@ -1,7 +1,7 @@
 var Backbone = require("../common/backboneFix.js");
 
 var IndexView = require('../views/index.js');
-var UserPageView = require('../views/userPage.js');
+var AlbumsListView = require('../views/albumsListPage.js');
 var AlbumView = require('../views/albumPage.js');
 var UserDataModel = require("../models/userdata.js");
 
@@ -9,7 +9,7 @@ var Router = Backbone.Router.extend({
     currentView: null,
     routes: {
         "user/:id/album/:album": "showAlbum",
-        "user/:id": "user",
+        "user/:id": "showAlbumsList",
         "": "index"
     },
     initialize: function() {
@@ -43,9 +43,9 @@ var Router = Backbone.Router.extend({
     index: function() {
         this.changeView(new IndexView());
     },
-    user: function(id) {
+    showAlbumsList: function(id) {
         if (this.isConnected() === true) {
-            this.changeView(new UserPageView(id));
+            this.changeView(new AlbumsListView(id));
         } else {
             this.redirectToLogin();
         }

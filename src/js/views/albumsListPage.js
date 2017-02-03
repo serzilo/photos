@@ -3,7 +3,7 @@ var Backbone = require("../common/backboneFix.js");
 var UserDataModel = require("../models/userdata.js");
 var AlbumsCollection = require("../collections/albums.js");
 
-var UserPage = Backbone.View.extend({
+var AlbumsPage = Backbone.View.extend({
     el: $('#app'),
     template: _.template($('#userPage').html()),
     photoTileTemplate: _.template($('#photoTile').html()),
@@ -53,4 +53,4 @@ var UserPage = Backbone.View.extend({
     }
 });
 
-module.exports = UserPage;
+module.exports = AlbumsPage;
