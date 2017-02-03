@@ -4,26 +4,29 @@ var UserDataModel = require("../models/userdata.js");
 var AlbumsCollection = require("../collections/albums.js");
 
 var UserPage = Backbone.View.extend({
+    el: $('#app'),
     template: _.template($('#userPage').html()),
     photoTileTemplate: _.template($('#photoTile').html()),
     albumTileTemplate: _.template($('#albumTile').html()),
-    initialize: function() {
+    initialize: function(id) {
+        this.owner_id = id;
+
         this.renderAlbums = this.renderAlbums.bind(this);
         this.getAlbums = this.getAlbums.bind(this);
-        this.owner_id = UserDataModel.get('session').user.id
 
-        this.getAlbums();
+        this.getAlbums(id);
         AlbumsCollection.on('add', this.renderAlbums);
     },
     events: {
         'click #logOut': 'logOut'
     },
     render: function() {
-        $('#app').html(this.$el.html(this.template(UserDataModel.get('session').user)));
+        this.$el.html(this.template());
+        this.renderAlbums();
     },
-    getAlbums: function() {
+    getAlbums: function(id) {
         $.ajax({
-            url: "https://api.vk.com/method/photos.getAlbums?v=5.62&need_covers=1&owner_id=" + this.owner_id,
+            url: "https://api.vk.com/method/photos.getAlbums?v=5.62&need_covers=1&owner_id=" + id,
             dataType: 'jsonp'
         }).done(function(res) {
             console.log(res);
@@ -45,7 +48,7 @@ var UserPage = Backbone.View.extend({
             return that.albumTileTemplate(album);
         });
 
-        $('#albums').html(albums);
+        this.$el.find('#albums').html(albums);
     },
     logOut: function (e) {
         e.preventDefault();

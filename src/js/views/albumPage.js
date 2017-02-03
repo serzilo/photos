@@ -1,5 +1,6 @@
 var Backbone = require("../common/backboneFix.js");
 
+var UserDataModel = require("../models/userdata.js");
 var PhotosCollection = require("../collections/photos.js");
 
 var AlbumPage = Backbone.View.extend({
@@ -7,15 +8,19 @@ var AlbumPage = Backbone.View.extend({
     template: _.template($('#photosPage').html()),
     photoTileTemplate: _.template($('#photoTile').html()),
     initialize: function(id, album) {
+        PhotosCollection.reset();
         this.renderPhotos = this.renderPhotos.bind(this);
 
         this.getPhotos(id, album);
-        this.renderPhotos();
 
         PhotosCollection.on('add', this.renderPhotos);
     },
+    events: {
+        'click #logOut': 'logOut'
+    },
     render: function() {
         this.$el.html(this.template());
+        this.renderPhotos();
     },
     getPhotos: function(id, album) {
         $.ajax({
@@ -39,6 +44,15 @@ var AlbumPage = Backbone.View.extend({
         });
 
         this.$el.find('#photos').html(photos);
+    },
+    logOut: function (e) {
+        e.preventDefault();
+
+        VK.Auth.logout(function() {
+            UserDataModel.clear();
+        });
+
+        console.dir(UserDataModel);
     }
 });
 
