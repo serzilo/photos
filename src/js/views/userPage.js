@@ -1,10 +1,10 @@
 var Backbone = require("../common/backboneFix.js");
 
-var userPage = Backbone.View.extend({
-    template: _.template($('#loginPage').html()),
+var UserPage = Backbone.View.extend({
+    template: _.template($('#userPage').html()),
     render: function() {
         $('#app').html(this.$el.html(this.template()));
     }
 });
 
-module.exports = userPage;
+module.exports = UserPage;
