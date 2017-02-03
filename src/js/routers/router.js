@@ -15,21 +15,22 @@ var Router = Backbone.Router.extend({
     initialize: function() {
         this.redirect = this.redirect.bind(this);
 
-        this.redirect();
-
         UserDataModel.on('change', this.redirect);
     },
     redirect: function() {
-        var status = UserDataModel.get('status');
-        var session = UserDataModel.get('session');
+        if (this.isConnected() === true) {
+            var session = UserDataModel.get('session');
 
-        console.dir(UserDataModel);
-
-        if ( status && status === 'connected' ) {
             this.navigate('user/' + session.user.id, {trigger: true});
         } else {
-            this.navigate('/', {trigger: true, replace: true});
+            this.navigate('', {trigger: true, replace: true});
         }
+    },
+    redirectToLogin: function() {
+        this.navigate('', {trigger: true, replace: true});
+    },
+    isConnected: function() {
+        return !!UserDataModel.get('status');
     },
     changeView: function(view) {
         if ( null !== this.currentView ) {
@@ -41,18 +42,20 @@ var Router = Backbone.Router.extend({
     },
     index: function() {
         this.changeView(new IndexView());
-
-        console.log('index page');
     },
     user: function(id) {
-        this.changeView(new UserPageView(id));
-
-        console.log('user page');
+        if (this.isConnected() === true) {
+            this.changeView(new UserPageView(id));
+        } else {
+            this.redirectToLogin();
+        }
     },
     showAlbum: function(id, album) {
-        this.changeView(new AlbumView(id, album));
-
-        console.log('album page');
+        if (this.isConnected() === true) {
+            this.changeView(new AlbumView(id, album));
+        } else {
+            this.redirectToLogin();
+        }
     }
 });
 

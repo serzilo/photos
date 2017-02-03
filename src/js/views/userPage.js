@@ -29,12 +29,9 @@ var UserPage = Backbone.View.extend({
             url: "https://api.vk.com/method/photos.getAlbums?v=5.62&need_covers=1&owner_id=" + id,
             dataType: 'jsonp'
         }).done(function(res) {
-            console.log(res);
-
             if (res.response.count > 0) {
                 AlbumsCollection.set(res.response.items);
             }
-            console.dir(AlbumsCollection)
         });
     },
     renderAlbums: function() {
@@ -44,7 +41,6 @@ var UserPage = Backbone.View.extend({
 
             album.album_url = '#user/' + that.owner_id + '/album/' + album.id;
 
-            console.dir(album);
             return that.albumTileTemplate(album);
         });
 
