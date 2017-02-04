@@ -23,7 +23,7 @@ var IndexView = Backbone.View.extend({
             UserDataModel.save();
         }else {
             // eslint-disable-next-line
-            console.error("Авторизоваться не удалось! ", res);
+            console.error("Auth error! ", res);
         }
     }
 });
