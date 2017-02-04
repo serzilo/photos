@@ -75,7 +75,6 @@ gulp.task('js:build', function () {
             }
         };
 
-
     return browserify(path.src.js, settings[env].browserify)
         .bundle()
         .pipe(source(path.build.jsName))

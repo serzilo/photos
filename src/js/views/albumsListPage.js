@@ -6,7 +6,7 @@ var AlbumsCollection = require("../collections/albums.js");
 
 var AlbumsPage = Backbone.View.extend({
     el: $('#app'),
-    template: _.template($('#userPage').html()),
+    template: _.template($('#albumsListPage').html()),
     errorMessageTemplate: _.template($('#errorMessage').html()),
     albumTileTemplate: _.template($('#albumTile').html()),
     initialize: function(id) {
@@ -57,8 +57,6 @@ var AlbumsPage = Backbone.View.extend({
     },
     logOut: function (e) {
         e.preventDefault();
-
-
 
         UserDataModel.clear();
     }

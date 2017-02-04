@@ -12,7 +12,7 @@ var vkAPI = {
             url: "https://api.vk.com/method/photos.getAlbums?v=5.62&need_covers=1&owner_id=" + id,
             dataType: 'jsonp'
         })
-    },
+    }
 };
 
 module.exports = vkAPI;

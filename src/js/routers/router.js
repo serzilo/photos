@@ -15,7 +15,7 @@ var Router = Backbone.Router.extend({
     initialize: function() {
         this.redirect = this.redirect.bind(this);
 
-        UserDataModel.on('change reset', this.redirect);
+        UserDataModel.on('change', this.redirect);
     },
     redirect: function() {
         if (this.isConnected() === true) {
