@@ -1,4 +1,5 @@
 var Backbone = require("../common/backboneFix.js");
+var vkAPI = require('../common/vkAPI.js');
 
 var UserDataModel = require("../models/userdata.js");
 var AlbumsCollection = require("../collections/albums.js");
@@ -6,7 +7,7 @@ var AlbumsCollection = require("../collections/albums.js");
 var AlbumsPage = Backbone.View.extend({
     el: $('#app'),
     template: _.template($('#userPage').html()),
-    photoTileTemplate: _.template($('#photoTile').html()),
+    errorMessageTemplate: _.template($('#errorMessage').html()),
     albumTileTemplate: _.template($('#albumTile').html()),
     initialize: function(id) {
         this.owner_id = id;
@@ -25,14 +26,19 @@ var AlbumsPage = Backbone.View.extend({
         this.renderAlbums();
     },
     getAlbums: function(id) {
-        $.ajax({
-            url: "https://api.vk.com/method/photos.getAlbums?v=5.62&need_covers=1&owner_id=" + id,
-            dataType: 'jsonp'
-        }).done(function(res) {
-            if (res.response.count > 0) {
-                AlbumsCollection.set(res.response.items);
-            }
-        });
+        var that = this;
+
+        vkAPI
+            .getAlbums(id)
+            .done(function(res) {
+                if (res.error) {
+                    that.renderError(res.error);
+                } else {
+                    if (res && res.response && res.response.count > 0) {
+                        AlbumsCollection.set(res.response.items);
+                    }
+                }
+            });
     },
     renderAlbums: function() {
         var that = this;
@@ -44,7 +50,10 @@ var AlbumsPage = Backbone.View.extend({
             return that.albumTileTemplate(album);
         });
 
-        this.$el.find('#albums').html(albums);
+        this.$('#albums').html(albums);
+    },
+    renderError: function(data) {
+        this.$('#albums').html(this.errorMessageTemplate(data));
     },
     logOut: function (e) {
         e.preventDefault();

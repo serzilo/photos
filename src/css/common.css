@@ -12,3 +12,12 @@ body {
 .mt0 {
     margin-top: 0 !important;
 }
+
+.mt20 {
+    margin-top: 20px !important;
+}
+
+.alert-fix {
+    margin: 0 14px;
+    font-size: 14px;
+}
