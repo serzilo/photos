@@ -65,11 +65,17 @@ var AlbumPage = Backbone.View.extend({
     openPopup: function(e) {
         e.preventDefault();
 
+        var that = this;
         var element = e.currentTarget;
         var url = element.getAttribute('data-photo');
         var description = element.getAttribute('data-text');
+        var image = new Image();
 
-        this.$('#popupPlace').html(this.popupTemplate({ url: url, description: description }));
+        image.onload = function() {
+            that.$('#popupPlace').html(that.popupTemplate({ url: url, description: description }));
+        };
+
+        image.src = url;
     },
     closePopup: function(e) {
         e.preventDefault();
