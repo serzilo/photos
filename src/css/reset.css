@@ -30,12 +30,12 @@ body {
 }
 
 /*
-* 1. Remove the gray background color from active links in IE 10. 
+* 1. Remove the gray background color from active links in IE 10.
 * 2. Remove the darked background color from tapped links in touch devices.
 */
 a {
     background: transparent; /* 1 */
-    -webkit-tap-highlight-color:rgba(0,0,0,0); /* 2 */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* 2 */
 }
 
 /*
@@ -115,8 +115,8 @@ table {
 /*
 * Clearfix: contain floats
 */
-.clearfix:after {
-	content: " ";
+.clearfix::after {
+    content: " ";
     clear: both;
     display: block;
 }

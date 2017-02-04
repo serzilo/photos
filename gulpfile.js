@@ -7,6 +7,7 @@ var gulp = require('gulp'),
     nested = require('postcss-nested'),
     customProperties = require("postcss-custom-properties"),
     cssnano = require('cssnano'),
+    stylelint = require('gulp-stylelint'),
     browserify = require('browserify'),
     watch = require('gulp-watch'),
     rigger = require('gulp-rigger'),
@@ -96,11 +97,25 @@ gulp.task('fonts:build', function () {
         .pipe(reload({stream: true}));
 });
 
+gulp.task('styles:lint', function () {
+    gulp
+        .src(['src/css/**/*.css'])
+        .pipe(stylelint({
+            reporters: [
+                {formatter: 'string', console: true}
+            ]
+        }));
+});
+
 gulp.task('build', [
     'html:build',
     'js:build',
     'css:build',
     'fonts:build'
+]);
+
+gulp.task('lint', [
+    'styles:lint'
 ]);
 
 gulp.task('watch', function(){
