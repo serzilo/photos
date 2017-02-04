@@ -1,5 +1,6 @@
+@import "reset.css";
 @import "bootstrap/bootstrap.min.css";
 @import "bootstrap/bootstrap-theme.min.css";
 @import "common.css";
-@import "popup.css";
-@import "tile.css";
+@import "UI/popup.css";
+@import "UI/tile.css";

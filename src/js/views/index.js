@@ -1,4 +1,5 @@
 var Backbone = require("../common/backboneFix.js");
+
 var UserDataModel = require("../models/userdata.js");
 var AppConfig = require('../configs/app.js');
 

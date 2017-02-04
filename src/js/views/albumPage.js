@@ -3,6 +3,8 @@ var Backbone = require("../common/backboneFix.js");
 var UserDataModel = require("../models/userdata.js");
 var PhotosCollection = require("../collections/photos.js");
 
+var AppConfig = require('../configs/app.js');
+
 var AlbumPage = Backbone.View.extend({
     el: $('#app'),
     template: _.template($('#photosPage').html()),
@@ -11,6 +13,8 @@ var AlbumPage = Backbone.View.extend({
     initialize: function(id, album) {
         PhotosCollection.reset();
         this.renderPhotos = this.renderPhotos.bind(this);
+
+        this.backLinkUrl = '#user/' + id;
 
         this.getPhotos(id, album);
 
@@ -23,12 +27,12 @@ var AlbumPage = Backbone.View.extend({
         'click #popupOverlay': 'closePopup'
     },
     render: function() {
-        this.$el.html(this.template());
+        this.$el.html(this.template({ backLinkUrl: this.backLinkUrl }));
         this.renderPhotos();
     },
     getPhotos: function(id, album) {
         $.ajax({
-            url: "https://api.vk.com/method/photos.get?v=5.62&owner_id=" + id + "&album_id=" + album + "&count=50",
+            url: "https://api.vk.com/method/photos.get?v=5.62&owner_id=" + id + "&album_id=" + album + "&count=" + AppConfig.countImagesInAlbum,
             dataType: 'jsonp'
         }).done(function(res) {
             if (res.response.count > 0) {

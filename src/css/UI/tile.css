@@ -1,9 +1,9 @@
-@import './vars.css';
+@import '../vars.css';
 
 .tile {
     display: inline-block;
     float: none;
-    width: 16.66666667%;
+    width: 19.66666667%;
 
     &__thumbnail {
         position: relative;
@@ -19,11 +19,6 @@
 
          &:hover {
             border-color: #337ab7;
-
-            & .tile__description {
-                white-space: normal;
-            }
-
         }
     }
 
@@ -49,5 +44,10 @@
         bottom: 1px;
         left: 1px;
         right: 1px;
+        font-size: 14px;
+    }
+
+    &__row {
+        font-size: 0;
     }
 }
