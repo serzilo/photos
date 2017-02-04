@@ -1,6 +1,8 @@
 <script type="text/template" id="albumTile">
-    <a href="<%= album_url %>" class="album-tile">
-        <img class="photo-tile__image" src="<%= thumb_src %>" alt="" />
-        <p><%= title %></p>
-    </a>
+    <div class="col-md-2 tile">
+        <a class="thumbnail tile__thumbnail" href="<%= album_url %>">
+            <img class="tile__image" src="<%= thumb_src %>" alt="" />
+            <div class="tile__description"><%= title %></div>
+        </a>
+    </div>
 </script>
