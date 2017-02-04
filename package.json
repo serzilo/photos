@@ -15,6 +15,7 @@
     "browserify": "^14.0.0",
     "cssnano": "^3.10.0",
     "gulp": "^3.9.1",
+    "gulp-eslint": "^3.0.1",
     "gulp-if": "^2.0.2",
     "gulp-postcss": "^6.3.0",
     "gulp-rigger": "^0.5.8",

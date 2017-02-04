@@ -42,8 +42,8 @@ var AlbumsPage = Backbone.View.extend({
     },
     renderAlbums: function() {
         var that = this;
-        var albums = AlbumsCollection.map(function(album){
-            var album = album.toJSON();
+        var albums = AlbumsCollection.map(function(albumItem){
+            var album = albumItem.toJSON();
 
             album.album_url = '#user/' + that.owner_id + '/album/' + album.id;
 
@@ -57,6 +57,8 @@ var AlbumsPage = Backbone.View.extend({
     },
     logOut: function (e) {
         e.preventDefault();
+
+
 
         UserDataModel.clear();
     }

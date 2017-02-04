@@ -8,6 +8,7 @@ var gulp = require('gulp'),
     customProperties = require("postcss-custom-properties"),
     cssnano = require('cssnano'),
     stylelint = require('gulp-stylelint'),
+    eslint = require('gulp-eslint'),
     browserify = require('browserify'),
     watch = require('gulp-watch'),
     rigger = require('gulp-rigger'),
@@ -99,12 +100,19 @@ gulp.task('fonts:build', function () {
 
 gulp.task('styles:lint', function () {
     gulp
-        .src(['src/css/**/*.css'])
+        .src([path.watch.css])
         .pipe(stylelint({
             reporters: [
                 {formatter: 'string', console: true}
             ]
         }));
+});
+
+gulp.task('js:lint', function () {
+    gulp.src([path.watch.js])
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
 });
 
 gulp.task('build', [
@@ -115,7 +123,8 @@ gulp.task('build', [
 ]);
 
 gulp.task('lint', [
-    'styles:lint'
+    'styles:lint',
+    'js:lint'
 ]);
 
 gulp.task('watch', function(){
