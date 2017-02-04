@@ -18,7 +18,9 @@
     "gulp-rigger": "^0.5.8",
     "gulp-uglify": "^2.0.1",
     "gulp-watch": "^4.3.11",
+    "postcss-custom-properties": "^5.0.2",
     "postcss-import": "^9.1.0",
+    "postcss-nested": "^1.0.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "yargs": "^6.6.0"

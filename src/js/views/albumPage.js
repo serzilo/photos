@@ -19,7 +19,8 @@ var AlbumPage = Backbone.View.extend({
     events: {
         'click #logOut': 'logOut',
         'click .js-photo-tile': 'openPopup',
-        'click #closePopupBtn': 'closePopup'
+        'click #closePopupBtn': 'closePopup',
+        'click #popupOverlay': 'closePopup'
     },
     render: function() {
         this.$el.html(this.template());

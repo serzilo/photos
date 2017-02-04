@@ -35,10 +35,30 @@
             <div id="popupPlace"></div>
         </script>
         <script type="text/template" id="popup">
-            <div id="">
-                <a href="#" id="closePopupBtn"></a>
-                <img class="" src="<%= url %>" alt="" />
-                <p><%= description %></p>
+            <div class="popup">
+                <div class="popup__wrapper">
+                    <div class="popup__overlay" id="popupOverlay"></div>
+        
+                    <div class="popup__window">
+                        <div class="popup__content
+                            <% if (description.length !== 0) { %>
+                                popup__content_with-description
+                            <% } %>
+                        ">
+                            <a class="popup__close-btn" id="closePopupBtn" href="#">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+        
+                            <img class="popup__photo" src="<%= url %>" alt="" />
+        
+                            <% if (description.length !== 0) { %>
+                                <div class="popup__description">
+                                    <p><%= description %></p>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
             </div>
         </script>
 

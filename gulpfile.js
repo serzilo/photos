@@ -4,6 +4,8 @@ var gulp = require('gulp'),
     postcss = require('gulp-postcss'),
     autoprefixer = require('autoprefixer'),
     atImport = require("postcss-import"),
+    nested = require('postcss-nested'),
+    customProperties = require("postcss-custom-properties"),
     cssnano = require('cssnano'),
     browserify = require('browserify'),
     watch = require('gulp-watch'),
@@ -31,17 +33,20 @@ var path = {
         html: 'build/',
         js:   'build/js/',
         jsName: 'bundle.js',
-        css:  'build/css/'
+        css:  'build/css/',
+        fonts: 'build/fonts'
     },
     src: {
         html:  'src/html/index.html',
         js:    'src/js/boot.js',
-        css:   'src/css/main.css'
+        css:   'src/css/main.css',
+        fonts: 'src/fonts/*.*'
     },
     watch: {
         html:    'src/html/**/*.html',
         js:      'src/js/**/*.js',
-        css:    'src/css/**/*.css'
+        css:    'src/css/**/*.css',
+        fonts: 'src/fonts/**/*.*'
     }
 };
 
@@ -80,15 +85,22 @@ gulp.task('js:build', function () {
 
 gulp.task('css:build', function () {
     gulp.src(path.src.css)
-        .pipe( postcss([ atImport, autoprefixer, cssnano ]) )
+        .pipe( postcss([ atImport, nested, customProperties, autoprefixer, cssnano ]) )
         .pipe(gulp.dest(path.build.css))
+        .pipe(reload({stream: true}));
+});
+
+gulp.task('fonts:build', function () {
+    gulp.src(path.src.fonts)
+        .pipe(gulp.dest(path.build.fonts))
         .pipe(reload({stream: true}));
 });
 
 gulp.task('build', [
     'html:build',
     'js:build',
-    'css:build'
+    'css:build',
+    'fonts:build'
 ]);
 
 gulp.task('watch', function(){
@@ -103,10 +115,17 @@ gulp.task('watch', function(){
     watch([path.watch.css], function(event, cb) {
         gulp.start('css:build');
     });
+
+    watch([path.watch.fonts], function(event, cb) {
+        gulp.start('fonts:build');
+    });
 });
 
 gulp.task('webserver', function () {
     browserSync(config);
 });
 
+/*
+ * alias gulp='node_modules/.bin/gulp'
+ */
 gulp.task('default', ['build', 'webserver', 'watch']);
