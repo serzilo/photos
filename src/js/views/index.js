@@ -18,7 +18,7 @@ var IndexView = Backbone.View.extend({
         VK.Auth.login(this.authInfo, AppConfig.appPermissions);
     },
     authInfo: function(res) {
-        if(res.session){
+        if(res.status === 'connected'){
             UserDataModel.set(res);
         }else {
             console.error("Авторизоваться не удалось! ", res);
