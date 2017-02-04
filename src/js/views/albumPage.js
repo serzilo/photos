@@ -60,6 +60,7 @@ var AlbumPage = Backbone.View.extend({
         e.preventDefault();
 
         UserDataModel.clear();
+        UserDataModel.save();
     },
     openPopup: function(e) {
         e.preventDefault();

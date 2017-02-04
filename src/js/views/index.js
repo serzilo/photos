@@ -20,6 +20,7 @@ var IndexView = Backbone.View.extend({
     authInfo: function(res) {
         if(res.status === 'connected'){
             UserDataModel.set(res);
+            UserDataModel.save();
         }else {
             // eslint-disable-next-line
             console.error("Авторизоваться не удалось! ", res);

@@ -59,6 +59,7 @@ var AlbumsPage = Backbone.View.extend({
         e.preventDefault();
 
         UserDataModel.clear();
+        UserDataModel.save();
     }
 });
 

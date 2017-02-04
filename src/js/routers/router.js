@@ -15,6 +15,8 @@ var Router = Backbone.Router.extend({
     initialize: function() {
         this.redirect = this.redirect.bind(this);
 
+        UserDataModel.fetch();
+
         UserDataModel.on('change', this.redirect);
     },
     redirect: function() {
