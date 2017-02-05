@@ -64,5 +64,6 @@
         overflow: auto;
         padding: 30px;
         text-align: left;
+        word-wrap: break-word;
     }
 }

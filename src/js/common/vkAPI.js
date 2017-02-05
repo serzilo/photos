@@ -9,7 +9,7 @@ var vkAPI = {
     },
     getAlbums: function(id) {
         return $.ajax({
-            url: "https://api.vk.com/method/photos.getAlbums?v=5.62&need_covers=1&owner_id=" + id,
+            url: "https://api.vk.com/method/photos.getAlbums?v=5.62&need_covers=1&need_system=1&owner_id=" + id,
             dataType: 'jsonp'
         })
     }

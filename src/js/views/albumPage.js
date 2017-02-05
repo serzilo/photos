@@ -6,7 +6,7 @@ var PhotosCollection = require("../collections/photos.js");
 
 var AlbumPage = Backbone.View.extend({
     el: $('#app'),
-    template: _.template($('#photosPage').html()),
+    template: _.template($('#albumPage').html()),
     errorMessageTemplate: _.template($('#errorMessage').html()),
     photoTileTemplate: _.template($('#photoTile').html()),
     popupTemplate: _.template($('#popup').html()),
@@ -41,6 +41,8 @@ var AlbumPage = Backbone.View.extend({
                 } else {
                     if (res && res.response && res.response.count > 0) {
                         PhotosCollection.set(res.response.items);
+                    } else {
+                        that.renderError({ error_msg: 'Фотографий не обнаружено.'});
                     }
                 }
             });

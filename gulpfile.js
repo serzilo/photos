@@ -32,11 +32,11 @@ var config = {
 
 var path = {
     build: {
-        html: 'build/',
-        js:   'build/js/',
+        html:   'build/',
+        js:     'build/js/',
         jsName: 'bundle.js',
-        css:  'build/css/',
-        fonts: 'build/fonts'
+        css:    'build/css/',
+        fonts:  'build/fonts'
     },
     src: {
         html:  'src/html/index.html',
@@ -47,13 +47,14 @@ var path = {
     watch: {
         html:    'src/html/**/*.html',
         js:      'src/js/**/*.js',
-        css:    'src/css/**/*.css',
-        fonts: 'src/fonts/**/*.*'
+        css:     'src/css/**/*.css',
+        fonts:   'src/fonts/**/*.*'
     }
 };
 
 gulp.task('html:build', function () {
-    gulp.src(path.src.html)
+    gulp
+        .src(path.src.html)
         .pipe(rigger())
         .pipe(gulp.dest(path.build.html))
         .pipe(reload({stream: true}));
@@ -85,14 +86,16 @@ gulp.task('js:build', function () {
 });
 
 gulp.task('css:build', function () {
-    gulp.src(path.src.css)
+    gulp
+        .src(path.src.css)
         .pipe( postcss([ atImport, nested, customProperties, autoprefixer, cssnano ]) )
         .pipe(gulp.dest(path.build.css))
         .pipe(reload({stream: true}));
 });
 
 gulp.task('fonts:build', function () {
-    gulp.src(path.src.fonts)
+    gulp
+        .src(path.src.fonts)
         .pipe(gulp.dest(path.build.fonts))
         .pipe(reload({stream: true}));
 });
@@ -108,7 +111,8 @@ gulp.task('styles:lint', function () {
 });
 
 gulp.task('js:lint', function () {
-    gulp.src([path.watch.js])
+    gulp
+        .src([path.watch.js])
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError());

@@ -11,9 +11,7 @@ var AlbumsPage = Backbone.View.extend({
     albumTileTemplate: _.template($('#albumTile').html()),
     initialize: function(id) {
         this.owner_id = id;
-
         this.renderAlbums = this.renderAlbums.bind(this);
-        this.getAlbums = this.getAlbums.bind(this);
 
         this.getAlbums(id);
         AlbumsCollection.on('add', this.renderAlbums);
@@ -36,6 +34,8 @@ var AlbumsPage = Backbone.View.extend({
                 } else {
                     if (res && res.response && res.response.count > 0) {
                         AlbumsCollection.set(res.response.items);
+                    } else {
+                        that.renderError({ error_msg: 'Альбомов не обнаружено.'});
                     }
                 }
             });
